@@ -5,7 +5,7 @@ data "aws_ssm_parameter" "amazon_linux_2" {
 
 # Create a security group named 'customer-securitygrp' with ingress rules
 resource "aws_security_group" "customer_securitygrp" {
-  vpc_id = aws_vpc.AWS_CUSTOMER_VPC.id
+  vpc_id      = aws_vpc.AWS_CUSTOMER_VPC.id
   name        = "customer-securitygrp"
   description = "customer-securitygrp"
 
@@ -42,9 +42,10 @@ resource "aws_security_group" "customer_securitygrp" {
 resource "aws_instance" "customer_linux" {
   ami           = data.aws_ssm_parameter.amazon_linux_2.value
   instance_type = "t2.micro"
-  key_name = "customer-keypair"
   
-
+  # Update the key_name with an existing key pair in your AWS account
+  key_name      = "my"  # Replace with your actual key pair name
+  
   tags = {
     Name = "Customer-Linux-Instance"
   }
